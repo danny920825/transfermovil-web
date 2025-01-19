@@ -5,46 +5,40 @@ import Operations from './components/Operations'
 
 function App() {
   const [tabName, setTabName] = React.useState('Options')
+
   return (
-    <div className="min-h-screen w-full px-10 max-w-screen-lg mx-auto border  py-20">
-      {/* render 2 tabs. Options and Cards */}
-      <h2 className='text-2xl text-center font-bold mb-2'>Transfermovil Web USSD</h2>
-      <p className='text-balance mb-3 text-center text-lg'>Una alternativa web para poder almacenar las tarjetas. Ideal para los que sufren de tener un iPhone en Qba</p>
-      <div className="flex justify-center mb-10">
-        <button
-          className={`py-2 px-4 w-1/3 rounded ${tabName === 'Options' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+    <div className="min-h-screen w-full px-6 max-w-screen-lg mx-auto py-10">
+      {/* Encabezado */}
+      <header className="text-center bg-gradient-to-r from-blue-500 to-blue-700 text-white p-6 rounded-lg shadow-md">
+        <h2 className="text-3xl font-bold mb-2">Transfermovil Web USSD</h2>
+        <p className="text-lg">
+          Una alternativa web para almacenar tus tarjetas y gestionar operaciones. 
+          Ideal para los que sufren de tener un iPhone en Qba.
+        </p>
+      </header>
+
+      {/* Tabs */}
+      <div className="flex justify-center mt-8">
+        {['Options', 'Opetations', 'Cards'].map((tab) => (
+          <button
+            key={tab}
+            className={`py-2 px-6 mx-2 rounded-lg text-lg font-semibold transition ${
+              tabName === tab
+                ? 'bg-blue-500 text-white shadow-md'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
-          onClick={() => setTabName('Options')}
-        >
-          Opciones
-        </button>
-        <button
-          className={`py-2 px-4 w-1/3 rounded ${tabName === 'Opetations' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-            }`}
-          onClick={() => setTabName('Opetations')}
-        >
-          Operaciones
-        </button>
-        <button
-          className={`py-2 px-4 w-1/3 rounded ${tabName === 'Cards' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-            }`}
-          onClick={() => setTabName('Cards')}
-        >
-          Tarjetas
-        </button>
+            onClick={() => setTabName(tab)}
+          >
+            {tab === 'Options' ? 'Opciones' : tab === 'Opetations' ? 'Operaciones' : 'Tarjetas'}
+          </button>
+        ))}
       </div>
 
-      {/* render the content of the selected tab */}
-      <div className="ml-4 ">
-        {tabName === 'Options' && (
-          <BanmetOption />
-        )}
-        {tabName === 'Opetations' && (
-          <Operations />
-        )}
-        {tabName === 'Cards' && (
-          <Cards />
-        )}
+      {/* Contenido del tab seleccionado */}
+      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
+        {tabName === 'Options' && <BanmetOption />}
+        {tabName === 'Opetations' && <Operations />}
+        {tabName === 'Cards' && <Cards />}
       </div>
     </div>
   )
