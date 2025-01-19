@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Card from './Card'
-import AddCardModal from './AddCardModal'
 import { PlusIcon } from './Icons'
+import AddCardModal from './AddCardModal'
 
 function Cards() {
   const [cards, setCards] = useState([])
@@ -10,9 +10,15 @@ function Cards() {
   const [isValid, setIsValid] = useState(true)
 
   React.useEffect(() => {
-    const cards = JSON.parse(localStorage.getItem('cards')) || []
-    setCards(cards)
+    const savedCards = JSON.parse(localStorage.getItem('cards')) || []
+    setCards(savedCards)
   }, [])
+
+  const handleDelete = (id) => {
+    const updatedCards = cards.filter((card) => card.id !== id)
+    setCards(updatedCards)
+    localStorage.setItem('cards', JSON.stringify(updatedCards))
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -24,12 +30,12 @@ function Cards() {
       cardNumber,
       name
     }
-    setCards([...cards, newCard])
-    localStorage.setItem('cards', JSON.stringify([...cards, newCard]))
+    const updatedCards = [...cards, newCard]
+    setCards(updatedCards)
+    localStorage.setItem('cards', JSON.stringify(updatedCards))
     setShowModal(false)
     setCardNumber('')
   }
-  
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -42,7 +48,7 @@ function Cards() {
 
       <div className="flex flex-col gap-y-4 mt-6">
         {cards.map((card) => (
-          <Card key={card.id} card={card} />
+          <Card key={card.id} card={card} onDelete={handleDelete} />
         ))}
 
         {cards.length === 0 && (
