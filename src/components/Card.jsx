@@ -6,7 +6,8 @@ function Card({ card, onDelete  }) {
   const [copied, setCopied] = useState(false)
 
   const CopyToClipboard = () => {
-    navigator.clipboard.writeText(card.cardNumber)
+    const cleanNumber = card.cardNumber.replace(/-/g, '') // Elimina los guiones
+    navigator.clipboard.writeText(cleanNumber)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000) // Reset after 2 seconds
   }
