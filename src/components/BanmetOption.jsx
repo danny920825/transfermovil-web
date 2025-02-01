@@ -2,6 +2,7 @@ import { USSDCodes } from '../mocks/data'
 
 function BanmetOption() {
   const Options = USSDCodes.find((banco) => banco.banco === 'Banmet').Sesion
+  const Consultas = USSDCodes.find((banco) => banco.banco === 'Banmet').Consultas
 
   return (
     <div className="flex flex-col items-center">
@@ -19,6 +20,15 @@ function BanmetOption() {
             className="block bg-white text-green-700 p-4 rounded-lg shadow-md hover:shadow-lg transition transform hover:scale-105 text-center font-semibold"
           >
             {option.title}
+          </a>
+        ))}
+        {Consultas.map((consulta) => (
+          <a
+            key={consulta.id}
+            href={`tel:${consulta.code}`}
+            className="block bg-white text-green-700 p-4 rounded-lg shadow-md hover:shadow-lg transition transform hover:scale-105 text-center font-semibold"
+          >
+            {consulta.title}
           </a>
         ))}
       </div>
